@@ -254,6 +254,11 @@
             font-size: 12px;
         }
 
+        .reference:empty::before,
+        .reference:empty::after {
+            display: none;
+        }
+
         .date {
             font-family: 'Lora', serif;
             font-size: 11px;
@@ -326,6 +331,11 @@
 
         .icon::after {
             right: -25px;
+        }
+
+        .icon.hidden::before,
+        .icon.hidden::after {
+            display: none;
         }
 
         .icon svg {
@@ -1141,7 +1151,16 @@
 
             if (text.trim()) {
                 document.getElementById('mainText').textContent = text;
-                document.getElementById('reference').textContent = ref;
+                const refElement = document.getElementById('reference');
+                refElement.textContent = ref;
+
+                // Masquer les étoiles si la référence est vide
+                if (!ref.trim()) {
+                    refElement.style.display = 'none';
+                } else {
+                    refElement.style.display = 'inline-block';
+                }
+
                 document.getElementById('author').textContent = author || 'BHT';
                 closeEditor();
             } else {
