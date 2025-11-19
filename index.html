@@ -1181,10 +1181,22 @@
             const controls = document.querySelector('.controls');
             controls.style.display = 'none';
 
-            const poster = document.querySelector('.container');
+            const container = document.querySelector('.container');
+            const poster = document.querySelector('.poster');
+
+            // Sauvegarder les styles originaux
+            const originalContainerStyle = container.style.cssText;
+            const originalPosterStyle = poster.style.cssText;
+
+            // Forcer la taille 600x600 pour la capture
+            container.style.width = '600px';
+            container.style.height = '600px';
+            container.style.maxWidth = '600px';
+            container.style.maxHeight = '600px';
+            poster.style.padding = '45px 40px';
 
             try {
-                const canvas = await html2canvas(poster, {
+                const canvas = await html2canvas(container, {
                     scale: 2,
                     backgroundColor: null,
                     logging: false,
@@ -1209,11 +1221,14 @@
 
             } catch (error) {
                 console.error('Erreur:', error);
-                alert(' Erreur lors du téléchargement. Veuillez réessayer.');
+                alert('❌ Erreur lors du téléchargement. Veuillez réessayer.');
                 btn.textContent = originalText;
                 btn.disabled = false;
             }
 
+            // Restaurer les styles originaux
+            container.style.cssText = originalContainerStyle;
+            poster.style.cssText = originalPosterStyle;
             controls.style.display = 'flex';
         }
     </script>
