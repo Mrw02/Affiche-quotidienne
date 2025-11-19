@@ -7,7 +7,9 @@
     <title>Créateur d'Affiche Quotidienne</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Lora:ital,wght@0,400;0,600;1,400&display=swap"
+        rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -19,9 +21,10 @@
             font-family: 'Georgia', serif;
             background: #f5f5f5;
             min-height: 100vh;
+            min-height: 100dvh;
             display: flex;
             flex-direction: column;
-            justify-content: flex-start;
+            justify-content: center;
             align-items: center;
             padding: 15px;
             gap: 15px;
@@ -29,8 +32,9 @@
 
         @media (max-width: 768px) {
             body {
-                padding: 10px;
-                gap: 10px;
+                padding: 20px 10px;
+                gap: 15px;
+                justify-content: center;
             }
         }
 
@@ -48,16 +52,19 @@
 
         @media (max-width: 768px) {
             .container {
-                max-width: 95vw;
+                max-width: min(85vw, 400px);
                 border-radius: 15px;
                 border: 3px solid white;
             }
         }
 
         @keyframes containerGlow {
-            0%, 100% {
+
+            0%,
+            100% {
                 box-shadow: 0 25px 70px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(255, 255, 255, 0.1);
             }
+
             50% {
                 box-shadow: 0 30px 80px rgba(0, 0, 0, 0.3), 0 0 40px rgba(102, 126, 234, 0.2);
             }
@@ -482,10 +489,10 @@
 
         @media (max-width: 768px) {
             .controls {
-                padding: 12px 20px;
+                padding: 14px 20px;
                 border-radius: 30px;
                 gap: 10px;
-                max-width: 95vw;
+                max-width: min(85vw, 400px);
             }
         }
 
@@ -725,7 +732,7 @@
             <div class="poster-header">
                 <div class="date" id="date"></div>
             </div>
-            
+
             <div class="poster-body">
                 <div class="icon" id="icon">
                     <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -740,7 +747,7 @@
                     <div class="reference" id="reference">Jean 3:16</div>
                 </div>
             </div>
-            
+
             <div class="author" id="author">BHT</div>
         </div>
     </div>
@@ -751,8 +758,10 @@
     <div class="editor" id="editor">
         <h2 style="margin-bottom: 20px; color: #4a4a4a; display: flex; align-items: center; gap: 10px;">
             <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="width: 28px; height: 28px;">
-                <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" stroke="currentColor"
+                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round" />
             </svg>
             Personnaliser l'affiche
         </h2>
@@ -820,15 +829,19 @@
         <div class="form-group">
             <label>Couleur du texte :</label>
             <div style="display: flex; gap: 10px;">
-                <button class="btn btn-secondary" id="btn-white" onclick="changeTextColor('white')" style="flex: 1; background: white; color: #4a4a4a; border: 2px solid #667eea; display: flex; align-items: center; justify-content: center; gap: 5px;">
-                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="width: 16px; height: 16px;">
-                        <circle cx="12" cy="12" r="10" fill="white" stroke="currentColor" stroke-width="2"/>
+                <button class="btn btn-secondary" id="btn-white" onclick="changeTextColor('white')"
+                    style="flex: 1; background: white; color: #4a4a4a; border: 2px solid #667eea; display: flex; align-items: center; justify-content: center; gap: 5px;">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
+                        style="width: 16px; height: 16px;">
+                        <circle cx="12" cy="12" r="10" fill="white" stroke="currentColor" stroke-width="2" />
                     </svg>
                     Blanc
                 </button>
-                <button class="btn btn-secondary" id="btn-black" onclick="changeTextColor('black')" style="flex: 1; display: flex; align-items: center; justify-content: center; gap: 5px;">
-                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="width: 16px; height: 16px;">
-                        <circle cx="12" cy="12" r="10" fill="#2d3748" stroke="currentColor" stroke-width="2"/>
+                <button class="btn btn-secondary" id="btn-black" onclick="changeTextColor('black')"
+                    style="flex: 1; display: flex; align-items: center; justify-content: center; gap: 5px;">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
+                        style="width: 16px; height: 16px;">
+                        <circle cx="12" cy="12" r="10" fill="#2d3748" stroke="currentColor" stroke-width="2" />
                     </svg>
                     Noir
                 </button>
@@ -841,8 +854,10 @@
                 <div class="icon-option" onclick="changeIcon('none')" title="Aucune icône">
                     <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
                         style="width: 30px; height: 30px;">
-                        <line x1="4" y1="4" x2="20" y2="20" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                        <line x1="20" y1="4" x2="4" y2="20" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        <line x1="4" y1="4" x2="20" y2="20" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" />
+                        <line x1="20" y1="4" x2="4" y2="20" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" />
                     </svg>
                 </div>
                 <div class="icon-option active" onclick="changeIcon('cross')" title="Croix">
@@ -934,17 +949,24 @@
 
     <div class="controls">
         <button class="btn btn-secondary" onclick="openEditor()">
-            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="width: 18px; height: 18px; display: inline-block; vertical-align: middle; margin-right: 5px;">
-                <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
+                style="width: 18px; height: 18px; display: inline-block; vertical-align: middle; margin-right: 5px;">
+                <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" stroke="currentColor"
+                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round" />
             </svg>
             Modifier
         </button>
         <button class="btn btn-primary" onclick="downloadPoster()">
-            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="width: 18px; height: 18px; display: inline-block; vertical-align: middle; margin-right: 5px;">
-                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                <polyline points="7 10 12 15 17 10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                <line x1="12" y1="15" x2="12" y2="3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
+                style="width: 18px; height: 18px; display: inline-block; vertical-align: middle; margin-right: 5px;">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round" />
+                <polyline points="7 10 12 15 17 10" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round" />
+                <line x1="12" y1="15" x2="12" y2="3" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round" />
             </svg>
             Télécharger
         </button>
@@ -977,7 +999,7 @@
         }
 
         updateDate();
-        
+
         // Initialiser la couleur de texte par défaut (blanc)
         document.getElementById('poster').classList.add('text-white');
 
@@ -996,7 +1018,7 @@
         function changeIcon(iconName) {
             currentIcon = iconName;
             const iconElement = document.getElementById('icon');
-            
+
             if (iconName === 'none') {
                 iconElement.classList.add('hidden');
             } else {
@@ -1013,17 +1035,17 @@
         function changeTextColor(color) {
             currentTextColor = color;
             const poster = document.getElementById('poster');
-            
+
             // Retirer les classes de couleur
             poster.classList.remove('text-white', 'text-black');
-            
+
             // Ajouter la nouvelle classe
             poster.classList.add('text-' + color);
-            
+
             // Mettre à jour l'UI des boutons
             const btnWhite = document.getElementById('btn-white');
             const btnBlack = document.getElementById('btn-black');
-            
+
             if (color === 'white') {
                 btnWhite.style.background = 'white';
                 btnWhite.style.color = '#4a4a4a';
@@ -1104,7 +1126,7 @@
                     link.click();
                     URL.revokeObjectURL(link.href);
 
-                    btn.textContent = '✅ Téléchargé !';
+                    btn.textContent = ' Téléchargé !';
                     setTimeout(() => {
                         btn.textContent = originalText;
                         btn.disabled = false;
@@ -1113,7 +1135,7 @@
 
             } catch (error) {
                 console.error('Erreur:', error);
-                alert('❌ Erreur lors du téléchargement. Veuillez réessayer.');
+                alert(' Erreur lors du téléchargement. Veuillez réessayer.');
                 btn.textContent = originalText;
                 btn.disabled = false;
             }
