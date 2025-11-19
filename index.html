@@ -998,7 +998,7 @@
         </div>
 
         <div class="form-group">
-            <label for="authorInput">Nom de l'auteur (en bas à droite) :</label>
+            <label for="authorInput">Nom :</label>
             <input type="text" id="authorInput" placeholder="Ex: BHT" maxlength="20">
         </div>
 
@@ -1218,7 +1218,7 @@
                     link.click();
                     URL.revokeObjectURL(link.href);
 
-                    btn.textContent = '✅ Téléchargé !';
+                    btn.textContent = ' Téléchargé !';
                     setTimeout(() => {
                         btn.textContent = originalText;
                         btn.disabled = false;
@@ -1227,7 +1227,7 @@
 
             } catch (error) {
                 console.error('Erreur:', error);
-                alert('❌ Erreur lors du téléchargement. Veuillez réessayer.');
+                alert(' Erreur lors du téléchargement. Veuillez réessayer.');
                 btn.textContent = originalText;
                 btn.disabled = false;
             }
@@ -1241,3 +1241,4 @@
 </body>
 
 </html>
+
