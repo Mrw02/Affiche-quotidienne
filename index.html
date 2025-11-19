@@ -21,10 +21,17 @@
             min-height: 100vh;
             display: flex;
             flex-direction: column;
-            justify-content: center;
+            justify-content: flex-start;
             align-items: center;
-            padding: 20px;
-            gap: 20px;
+            padding: 15px;
+            gap: 15px;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+                gap: 10px;
+            }
         }
 
         .container {
@@ -37,7 +44,14 @@
             overflow: hidden;
             position: relative;
             border: 5px solid white;
-            animation: containerGlow 4s ease-in-out infinite;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                max-width: 95vw;
+                border-radius: 15px;
+                border: 3px solid white;
+            }
         }
 
         @keyframes containerGlow {
@@ -462,6 +476,17 @@
             gap: 12px;
             flex-wrap: wrap;
             justify-content: center;
+            width: 100%;
+            max-width: 600px;
+        }
+
+        @media (max-width: 768px) {
+            .controls {
+                padding: 12px 20px;
+                border-radius: 30px;
+                gap: 10px;
+                max-width: 95vw;
+            }
         }
 
         .btn {
@@ -472,6 +497,16 @@
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        @media (max-width: 768px) {
+            .btn {
+                padding: 10px 16px;
+                font-size: 14px;
+                flex: 1;
+                min-width: 120px;
+            }
         }
 
         .btn-primary {
@@ -500,14 +535,24 @@
             left: 50%;
             transform: translate(-50%, -50%);
             background: white;
-            padding: 35px;
+            padding: 25px;
             border-radius: 20px;
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
             z-index: 200;
             width: 90%;
             max-width: 550px;
-            max-height: 90vh;
+            max-height: 85vh;
             overflow-y: auto;
+        }
+
+        @media (max-width: 768px) {
+            .editor {
+                width: 95%;
+                max-width: 95vw;
+                padding: 20px;
+                max-height: 90vh;
+                border-radius: 15px;
+            }
         }
 
         .editor.active {
@@ -582,6 +627,13 @@
             margin-top: 10px;
         }
 
+        @media (max-width: 768px) {
+            .style-selector {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 8px;
+            }
+        }
+
         .style-option {
             padding: 15px;
             border: 2px solid #e0e0e0;
@@ -606,6 +658,13 @@
             grid-template-columns: repeat(4, 1fr);
             gap: 8px;
             margin-top: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .icon-selector {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 6px;
+            }
         }
 
         .icon-option {
