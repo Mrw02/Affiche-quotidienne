@@ -52,7 +52,10 @@
 
         @media (max-width: 768px) {
             .container {
-                max-width: min(80vw, 350px);
+                width: 90vw;
+                max-width: 90vw;
+                height: 90vw;
+                aspect-ratio: 1/1;
                 border-radius: 15px;
                 border: 3px solid white;
             }
@@ -82,6 +85,13 @@
             border: 6px solid rgba(255, 255, 255, 0.25);
             border-radius: 20px;
             overflow: hidden;
+        }
+
+        @media (max-width: 768px) {
+            .poster {
+                padding: 25px 20px;
+                border: 4px solid rgba(255, 255, 255, 0.25);
+            }
         }
 
         /* Styles de fond */
@@ -220,6 +230,13 @@
             display: inline-block;
         }
 
+        @media (max-width: 768px) {
+            .reference {
+                font-size: 14px;
+                letter-spacing: 2px;
+            }
+        }
+
         .reference::before {
             content: '✦';
             position: absolute;
@@ -244,6 +261,13 @@
             text-transform: uppercase;
             z-index: 2;
             opacity: 0.85;
+        }
+
+        @media (max-width: 768px) {
+            .date {
+                font-size: 9px;
+                letter-spacing: 3px;
+            }
         }
 
         .style-verset .date,
@@ -277,6 +301,14 @@
 
         .icon.hidden {
             display: none;
+        }
+
+        @media (max-width: 768px) {
+            .icon {
+                width: 50px;
+                height: 50px;
+                margin: 15px 0;
+            }
         }
 
         .icon::before,
@@ -369,6 +401,17 @@
             -webkit-box-orient: vertical;
         }
 
+        @media (max-width: 768px) {
+            .main-text {
+                font-size: 18px;
+                line-height: 1.5;
+                margin-bottom: 15px;
+                padding: 0 10px;
+                max-height: none;
+                -webkit-line-clamp: 8;
+            }
+        }
+
 
 
         .style-verset .main-text,
@@ -448,6 +491,14 @@
             text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
         }
 
+        @media (max-width: 768px) {
+            .author {
+                font-size: 11px;
+                letter-spacing: 3px;
+                bottom: 18px;
+            }
+        }
+
         .style-verset .author,
         .style-nature .author,
         .style-ocean .author,
@@ -492,7 +543,8 @@
                 padding: 14px 20px;
                 border-radius: 30px;
                 gap: 10px;
-                max-width: min(80vw, 350px);
+                width: 90vw;
+                max-width: 90vw;
             }
         }
 
