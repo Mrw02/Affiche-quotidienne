@@ -1,0 +1,1067 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Créateur d'Affiche Quotidienne</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            background: #f5f5f5;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            gap: 20px;
+        }
+
+        .container {
+            background: white;
+            width: 100%;
+            max-width: 600px;
+            aspect-ratio: 1/1;
+            border-radius: 25px;
+            box-shadow: 0 25px 70px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(255, 255, 255, 0.1);
+            overflow: hidden;
+            position: relative;
+            border: 5px solid white;
+            animation: containerGlow 4s ease-in-out infinite;
+        }
+
+        @keyframes containerGlow {
+            0%, 100% {
+                box-shadow: 0 25px 70px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(255, 255, 255, 0.1);
+            }
+            50% {
+                box-shadow: 0 30px 80px rgba(0, 0, 0, 0.3), 0 0 40px rgba(102, 126, 234, 0.2);
+            }
+        }
+
+        .poster {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            padding: 45px 40px;
+            position: relative;
+            border: 6px solid rgba(255, 255, 255, 0.25);
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        /* Styles de fond */
+        .style-verset {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            box-shadow: inset 0 0 80px rgba(0, 0, 0, 0.15);
+        }
+
+        .style-motivation {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            box-shadow: inset 0 0 80px rgba(0, 0, 0, 0.08);
+        }
+
+        .style-minimal {
+            background: #ffffff;
+            border: 8px solid #e0e0e0;
+            box-shadow: inset 0 0 50px rgba(0, 0, 0, 0.03);
+        }
+
+        .style-nature {
+            background: linear-gradient(135deg, #a8e063 0%, #56ab2f 100%);
+            box-shadow: inset 0 0 80px rgba(0, 0, 0, 0.15);
+        }
+
+        .style-ocean {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            box-shadow: inset 0 0 80px rgba(0, 0, 0, 0.15);
+        }
+
+        .style-rose {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            box-shadow: inset 0 0 80px rgba(0, 0, 0, 0.15);
+        }
+
+        .style-orange {
+            background: linear-gradient(135deg, #ff9a56 0%, #ff6a00 100%);
+            box-shadow: inset 0 0 80px rgba(0, 0, 0, 0.15);
+        }
+
+        .style-espoir {
+            background: linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%);
+            box-shadow: inset 0 0 80px rgba(0, 0, 0, 0.12);
+        }
+
+        .style-dore {
+            background: linear-gradient(135deg, #f7971e 0%, #ffd200 100%);
+            box-shadow: inset 0 0 80px rgba(0, 0, 0, 0.15);
+        }
+
+        .decorative-circle {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.08;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.4) 0%, transparent 60%);
+        }
+
+        .circle1 {
+            width: 300px;
+            height: 300px;
+            top: -100px;
+            right: -100px;
+        }
+
+        .circle2 {
+            width: 250px;
+            height: 250px;
+            bottom: -80px;
+            left: -80px;
+        }
+
+        /* Vignette subtile */
+        .poster::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at center, transparent 40%, rgba(0, 0, 0, 0.08) 100%);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* Coins décoratifs */
+        .corner-decoration {
+            position: absolute;
+            width: 35px;
+            height: 35px;
+            border: 1.5px solid rgba(255, 255, 255, 0.35);
+            z-index: 2;
+        }
+
+        .corner-tl {
+            top: 25px;
+            left: 25px;
+            border-right: none;
+            border-bottom: none;
+        }
+
+        .corner-tr {
+            top: 25px;
+            right: 25px;
+            border-left: none;
+            border-bottom: none;
+        }
+
+        .corner-bl {
+            bottom: 25px;
+            left: 25px;
+            border-right: none;
+            border-top: none;
+        }
+
+        .corner-br {
+            bottom: 25px;
+            right: 25px;
+            border-left: none;
+            border-top: none;
+        }
+
+        /* Particules décoratives */
+        .sparkle {
+            display: none;
+        }
+
+        /* Référence */
+        .reference {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 18px;
+            font-weight: 600;
+            font-style: normal;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            text-shadow: 0 2px 6px rgba(0, 0, 0, 0.3), 0 1px 2px rgba(0, 0, 0, 0.2);
+            position: relative;
+            display: inline-block;
+        }
+
+        .reference::before {
+            content: '✦';
+            position: absolute;
+            left: -22px;
+            opacity: 0.6;
+            font-size: 12px;
+        }
+
+        .reference::after {
+            content: '✦';
+            position: absolute;
+            right: -22px;
+            opacity: 0.6;
+            font-size: 12px;
+        }
+
+        .date {
+            font-family: 'Lora', serif;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            z-index: 2;
+            opacity: 0.85;
+        }
+
+        .style-verset .date,
+        .style-nature .date,
+        .style-ocean .date,
+        .style-rose .date,
+        .style-orange .date,
+        .style-espoir .date,
+        .style-dore .date {
+            color: rgba(255, 255, 255, 0.85);
+        }
+
+        .style-motivation .date {
+            color: #8b5a3c;
+        }
+
+        .style-minimal .date {
+            color: #666;
+        }
+
+        .icon {
+            width: 70px;
+            height: 70px;
+            margin: 20px 0;
+            z-index: 2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        .icon.hidden {
+            display: none;
+        }
+
+        .icon::before,
+        .icon::after {
+            content: '✦';
+            position: absolute;
+            font-size: 14px;
+            opacity: 0.5;
+        }
+
+        .icon::before {
+            left: -25px;
+        }
+
+        .icon::after {
+            right: -25px;
+        }
+
+        .icon svg {
+            width: 100%;
+            height: 100%;
+            filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.35)) drop-shadow(0 2px 4px rgba(0, 0, 0, 0.25));
+        }
+
+        .style-verset .icon svg,
+        .style-nature .icon svg,
+        .style-ocean .icon svg,
+        .style-rose .icon svg,
+        .style-orange .icon svg,
+        .style-espoir .icon svg,
+        .style-dore .icon svg {
+            fill: #ffffff;
+            stroke: #ffffff;
+            opacity: 0.98;
+        }
+
+        .style-motivation .icon svg {
+            fill: #6b4a2c;
+            stroke: #6b4a2c;
+            opacity: 0.9;
+        }
+
+        .style-minimal .icon svg {
+            fill: #2d3748;
+            stroke: #2d3748;
+            opacity: 0.9;
+        }
+
+        .content {
+            text-align: center;
+            z-index: 2;
+            max-width: 500px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .poster-header {
+            width: 100%;
+            text-align: center;
+            z-index: 2;
+        }
+
+        .poster-body {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            min-height: 0;
+        }
+
+        .main-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 22px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            font-weight: 400;
+            font-style: italic;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.4), 0 1px 3px rgba(0, 0, 0, 0.3);
+            padding: 0 15px;
+            letter-spacing: 0.2px;
+            max-height: 350px;
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-line-clamp: 10;
+            -webkit-box-orient: vertical;
+        }
+
+
+
+        .style-verset .main-text,
+        .style-nature .main-text,
+        .style-ocean .main-text,
+        .style-rose .main-text,
+        .style-orange .main-text,
+        .style-espoir .main-text,
+        .style-dore .main-text {
+            color: #ffffff;
+        }
+
+        .style-motivation .main-text {
+            color: #3a3a3a;
+        }
+
+        .style-minimal .main-text {
+            color: #1a202c;
+        }
+
+
+
+        .style-verset .reference,
+        .style-nature .reference,
+        .style-ocean .reference,
+        .style-rose .reference,
+        .style-orange .reference,
+        .style-espoir .reference,
+        .style-dore .reference {
+            color: rgba(255, 255, 255, 0.95);
+        }
+
+        .style-motivation .reference {
+            color: #6b4a2c;
+        }
+
+        .style-minimal .reference {
+            color: #2d3748;
+        }
+
+        /* Couleurs de texte personnalisées */
+        .text-white .date,
+        .text-white .main-text,
+        .text-white .reference {
+            color: white !important;
+        }
+
+        .text-white .icon svg {
+            fill: white !important;
+            stroke: white !important;
+        }
+
+        .text-black .date,
+        .text-black .main-text,
+        .text-black .reference {
+            color: #2d3748 !important;
+        }
+
+        .text-black .icon svg {
+            fill: #2d3748 !important;
+            stroke: #2d3748 !important;
+        }
+
+        /* Nom de l'auteur centré en bas */
+        .author {
+            position: absolute;
+            bottom: 22px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 4px;
+            opacity: 0.85;
+            z-index: 2;
+            font-style: normal;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .style-verset .author,
+        .style-nature .author,
+        .style-ocean .author,
+        .style-rose .author,
+        .style-orange .author,
+        .style-espoir .author,
+        .style-dore .author {
+            color: rgba(255, 255, 255, 0.85);
+        }
+
+        .style-motivation .author {
+            color: #8b5a3c;
+        }
+
+        .style-minimal .author {
+            color: #4a5568;
+        }
+
+        .text-white .author {
+            color: white !important;
+        }
+
+        .text-black .author {
+            color: #2d3748 !important;
+        }
+
+        .controls {
+            background: white;
+            padding: 15px 25px;
+            border-radius: 50px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 25px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-secondary {
+            background: #f0f0f0;
+            color: #4a4a4a;
+        }
+
+        .btn-secondary:hover {
+            background: #e0e0e0;
+        }
+
+        .editor {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 35px;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            z-index: 200;
+            width: 90%;
+            max-width: 550px;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .editor.active {
+            display: block;
+        }
+
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 150;
+        }
+
+        .overlay.active {
+            display: block;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #4a4a4a;
+            font-size: 14px;
+        }
+
+        textarea,
+        input,
+        select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 15px;
+            font-family: inherit;
+            transition: border-color 0.3s;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        textarea:focus,
+        input:focus,
+        select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 12px;
+            margin-top: 25px;
+        }
+
+        .button-group .btn {
+            flex: 1;
+        }
+
+        .style-selector {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .style-option {
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.3s;
+            font-size: 13px;
+        }
+
+        .style-option:hover {
+            border-color: #667eea;
+        }
+
+        .style-option.active {
+            border-color: #667eea;
+            background: #f0f4ff;
+        }
+
+        .icon-selector {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .icon-option {
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            cursor: pointer;
+            text-align: center;
+            font-size: 24px;
+            transition: all 0.3s;
+        }
+
+        .icon-option:hover {
+            border-color: #667eea;
+        }
+
+        .icon-option.active {
+            border-color: #667eea;
+            background: #f0f4ff;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                max-width: 90vw;
+            }
+
+            .poster {
+                padding: 40px 30px;
+            }
+
+            .main-text {
+                font-size: 22px;
+            }
+
+            .controls {
+                bottom: 20px;
+                padding: 12px 20px;
+            }
+
+            .btn {
+                padding: 8px 16px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="poster style-verset" id="poster">
+            <div class="decorative-circle circle1"></div>
+            <div class="decorative-circle circle2"></div>
+            <div class="corner-decoration corner-tl"></div>
+            <div class="corner-decoration corner-tr"></div>
+            <div class="corner-decoration corner-bl"></div>
+            <div class="corner-decoration corner-br"></div>
+
+            <div class="poster-header">
+                <div class="date" id="date"></div>
+            </div>
+            
+            <div class="poster-body">
+                <div class="icon" id="icon">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 2L12 22M5 9L19 9" stroke-width="2" stroke-linecap="round" />
+                    </svg>
+                </div>
+                <div class="content">
+                    <div class="main-text" id="mainText">
+                        "Car Dieu a tant aimé le monde qu'il a donné son Fils unique, afin que quiconque croit en lui ne
+                        périsse point, mais qu'il ait la vie éternelle."
+                    </div>
+                    <div class="reference" id="reference">Jean 3:16</div>
+                </div>
+            </div>
+            
+            <div class="author" id="author">BHT</div>
+        </div>
+    </div>
+    </div>
+
+    <div class="overlay" id="overlay"></div>
+
+    <div class="editor" id="editor">
+        <h2 style="margin-bottom: 20px; color: #4a4a4a; display: flex; align-items: center; gap: 10px;">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="width: 28px; height: 28px;">
+                <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            Personnaliser l'affiche
+        </h2>
+
+        <div class="form-group">
+            <label>Style de fond :</label>
+            <div class="style-selector">
+                <div class="style-option active" onclick="changeStyle('verset')">
+                    <div
+                        style="width: 100%; height: 40px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 5px; margin-bottom: 5px;">
+                    </div>
+                    Verset
+                </div>
+                <div class="style-option" onclick="changeStyle('motivation')">
+                    <div
+                        style="width: 100%; height: 40px; background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%); border-radius: 5px; margin-bottom: 5px;">
+                    </div>
+                    Motivation
+                </div>
+                <div class="style-option" onclick="changeStyle('minimal')">
+                    <div
+                        style="width: 100%; height: 40px; background: white; border: 2px solid #e0e0e0; border-radius: 5px; margin-bottom: 5px;">
+                    </div>
+                    Minimal
+                </div>
+                <div class="style-option" onclick="changeStyle('nature')">
+                    <div
+                        style="width: 100%; height: 40px; background: linear-gradient(135deg, #a8e063 0%, #56ab2f 100%); border-radius: 5px; margin-bottom: 5px;">
+                    </div>
+                    Nature
+                </div>
+                <div class="style-option" onclick="changeStyle('ocean')">
+                    <div
+                        style="width: 100%; height: 40px; background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); border-radius: 5px; margin-bottom: 5px;">
+                    </div>
+                    Océan
+                </div>
+                <div class="style-option" onclick="changeStyle('rose')">
+                    <div
+                        style="width: 100%; height: 40px; background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); border-radius: 5px; margin-bottom: 5px;">
+                    </div>
+                    Rose
+                </div>
+                <div class="style-option" onclick="changeStyle('orange')">
+                    <div
+                        style="width: 100%; height: 40px; background: linear-gradient(135deg, #ff9a56 0%, #ff6a00 100%); border-radius: 5px; margin-bottom: 5px;">
+                    </div>
+                    Énergie
+                </div>
+                <div class="style-option" onclick="changeStyle('espoir')">
+                    <div
+                        style="width: 100%; height: 40px; background: linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%); border-radius: 5px; margin-bottom: 5px;">
+                    </div>
+                    Espoir
+                </div>
+                <div class="style-option" onclick="changeStyle('dore')">
+                    <div
+                        style="width: 100%; height: 40px; background: linear-gradient(135deg, #f7971e 0%, #ffd200 100%); border-radius: 5px; margin-bottom: 5px;">
+                    </div>
+                    Doré
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Couleur du texte :</label>
+            <div style="display: flex; gap: 10px;">
+                <button class="btn btn-secondary" id="btn-white" onclick="changeTextColor('white')" style="flex: 1; background: white; color: #4a4a4a; border: 2px solid #667eea; display: flex; align-items: center; justify-content: center; gap: 5px;">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="width: 16px; height: 16px;">
+                        <circle cx="12" cy="12" r="10" fill="white" stroke="currentColor" stroke-width="2"/>
+                    </svg>
+                    Blanc
+                </button>
+                <button class="btn btn-secondary" id="btn-black" onclick="changeTextColor('black')" style="flex: 1; display: flex; align-items: center; justify-content: center; gap: 5px;">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="width: 16px; height: 16px;">
+                        <circle cx="12" cy="12" r="10" fill="#2d3748" stroke="currentColor" stroke-width="2"/>
+                    </svg>
+                    Noir
+                </button>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Icône :</label>
+            <div class="icon-selector">
+                <div class="icon-option" onclick="changeIcon('none')" title="Aucune icône">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
+                        style="width: 30px; height: 30px;">
+                        <line x1="4" y1="4" x2="20" y2="20" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        <line x1="20" y1="4" x2="4" y2="20" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                </div>
+                <div class="icon-option active" onclick="changeIcon('cross')" title="Croix">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
+                        style="width: 30px; height: 30px;">
+                        <path d="M12 2L12 22M5 9L19 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                    </svg>
+                </div>
+                <div class="icon-option" onclick="changeIcon('heart')" title="Cœur">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
+                        style="width: 30px; height: 30px;">
+                        <path
+                            d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                </div>
+                <div class="icon-option" onclick="changeIcon('star')" title="Étoile">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
+                        style="width: 30px; height: 30px;">
+                        <path
+                            d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                </div>
+                <div class="icon-option" onclick="changeIcon('book')" title="Livre">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
+                        style="width: 30px; height: 30px;">
+                        <path
+                            d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20M4 19.5A2.5 2.5 0 0 0 6.5 22H20V2H6.5A2.5 2.5 0 0 0 4 4.5v15z"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                </div>
+                <div class="icon-option" onclick="changeIcon('dove')" title="Colombe">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
+                        style="width: 30px; height: 30px;">
+                        <path
+                            d="M12 3c-1.2 0-2.4.6-3 1.7M12 3c1.2 0 2.4.6 3 1.7M12 3v7m-3-5.3C7.9 6.1 7 7.9 7 10c0 2.8 1.6 5.2 4 6.3M9 4.7c-.9 1.4-1.5 3-1.5 4.8 0 2.2 1 4.2 2.5 5.5m3-10.3c1.1 1.4 2 3.2 2 5.5 0 2.8-1.6 5.2-4 6.3m3-11.8c.9 1.4 1.5 3 1.5 4.8 0 2.2-1 4.2-2.5 5.5M12 16.3V21m-4-2l4 2 4-2"
+                            stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                </div>
+                <div class="icon-option" onclick="changeIcon('sun')" title="Soleil">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
+                        style="width: 30px; height: 30px;">
+                        <circle cx="12" cy="12" r="5" stroke="currentColor" stroke-width="2" />
+                        <path
+                            d="M12 1v2m0 18v2M4.22 4.22l1.42 1.42m12.72 12.72l1.42 1.42M1 12h2m18 0h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                    </svg>
+                </div>
+                <div class="icon-option" onclick="changeIcon('hands')" title="Mains en prière">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
+                        style="width: 30px; height: 30px;">
+                        <path d="M12 5L12 19M12 5L8 9v10l4 2m0-16l4 4v10l-4 2m0 0v3" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                </div>
+                <div class="icon-option" onclick="changeIcon('flower')" title="Fleur">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
+                        style="width: 30px; height: 30px;">
+                        <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="2" />
+                        <path
+                            d="M12 2a3 3 0 0 0 0 6 3 3 0 0 0 0-6zm0 14a3 3 0 0 0 0 6 3 3 0 0 0 0-6zM2 12a3 3 0 0 0 6 0 3 3 0 0 0-6 0zm14 0a3 3 0 0 0 6 0 3 3 0 0 0-6 0z"
+                            stroke="currentColor" stroke-width="2" />
+                    </svg>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="textInput">Texte principal :</label>
+            <textarea id="textInput" placeholder="Entrez votre verset ou citation..."></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="refInput">Référence :</label>
+            <input type="text" id="refInput" placeholder="Ex: Jean 3:16 ou - Auteur">
+        </div>
+
+        <div class="form-group">
+            <label for="authorInput">Nom de l'auteur (en bas à droite) :</label>
+            <input type="text" id="authorInput" placeholder="Ex: BHT" maxlength="20">
+        </div>
+
+        <div class="button-group">
+            <button class="btn btn-secondary" onclick="closeEditor()">Annuler</button>
+            <button class="btn btn-primary" onclick="saveContent()">✓ Appliquer</button>
+        </div>
+    </div>
+
+    <div class="controls">
+        <button class="btn btn-secondary" onclick="openEditor()">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="width: 18px; height: 18px; display: inline-block; vertical-align: middle; margin-right: 5px;">
+                <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            Modifier
+        </button>
+        <button class="btn btn-primary" onclick="downloadPoster()">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="width: 18px; height: 18px; display: inline-block; vertical-align: middle; margin-right: 5px;">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <polyline points="7 10 12 15 17 10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <line x1="12" y1="15" x2="12" y2="3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            Télécharger
+        </button>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script>
+        let currentStyle = 'verset';
+        let currentIcon = 'cross';
+        let currentTextColor = 'white';
+
+        const icons = {
+            cross: '<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2L12 22M5 9L19 9" stroke-width="2" stroke-linecap="round"/></svg>',
+            mary: '<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C10 2 8.5 3.5 8.5 5.5c0 1 .5 2 1 2.5M12 2c2 0 3.5 1.5 3.5 3.5 0 1-.5 2-1 2.5M12 2v6m-2.5 0C8 8 7 9 7 10.5V12c0 2 1 3.5 2 4.5m3.5-8C14 8 15 9 15 10.5V12c0 2-1 3.5-2 4.5M9 16.5c0 1 .5 2 1.5 2.5.5.3 1 .5 1.5.5s1-.2 1.5-.5c1-.5 1.5-1.5 1.5-2.5M9 16.5V20c0 1 1 2 3 2s3-1 3-2v-3.5M12 8L10 10m2-2l2 2" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+            jesus: '<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="7" r="3" stroke-width="1.5"/><path d="M12 10v12M8 14h8M6 18h12M12 22c-3 0-5-1-5-3v-5c0-1.5 2-2.5 5-2.5s5 1 5 2.5v5c0 2-2 3-5 3z" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 6l3-4 3 4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+            heart: '<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+            star: '<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+            book: '<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20M4 19.5A2.5 2.5 0 0 0 6.5 22H20V2H6.5A2.5 2.5 0 0 0 4 4.5v15z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+            dove: '<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 3c-1.2 0-2.4.6-3 1.7M12 3c1.2 0 2.4.6 3 1.7M12 3v7m-3-5.3C7.9 6.1 7 7.9 7 10c0 2.8 1.6 5.2 4 6.3M9 4.7c-.9 1.4-1.5 3-1.5 4.8 0 2.2 1 4.2 2.5 5.5m3-10.3c1.1 1.4 2 3.2 2 5.5 0 2.8-1.6 5.2-4 6.3m3-11.8c.9 1.4 1.5 3 1.5 4.8 0 2.2-1 4.2-2.5 5.5M12 16.3V21m-4-2l4 2 4-2" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+            sun: '<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="5" stroke-width="2"/><path d="M12 1v2m0 18v2M4.22 4.22l1.42 1.42m12.72 12.72l1.42 1.42M1 12h2m18 0h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" stroke-width="2" stroke-linecap="round"/></svg>',
+            hands: '<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 5L12 19M12 5L8 9v10l4 2m0-16l4 4v10l-4 2m0 0v3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+            flower: '<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="3" stroke-width="2"/><path d="M12 2a3 3 0 0 0 0 6 3 3 0 0 0 0-6zm0 14a3 3 0 0 0 0 6 3 3 0 0 0 0-6zM2 12a3 3 0 0 0 6 0 3 3 0 0 0-6 0zm14 0a3 3 0 0 0 6 0 3 3 0 0 0-6 0z" stroke-width="2"/></svg>'
+        };
+
+        // Afficher la date du jour
+        function updateDate() {
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            const today = new Date().toLocaleDateString('fr-FR', options);
+            document.getElementById('date').textContent = today;
+        }
+
+        updateDate();
+        
+        // Initialiser la couleur de texte par défaut (blanc)
+        document.getElementById('poster').classList.add('text-white');
+
+        // Changer le style
+        function changeStyle(style) {
+            currentStyle = style;
+            const poster = document.getElementById('poster');
+            poster.className = 'poster style-' + style;
+
+            // Mettre à jour l'UI
+            document.querySelectorAll('.style-option').forEach(opt => opt.classList.remove('active'));
+            event.target.closest('.style-option').classList.add('active');
+        }
+
+        // Changer l'icône
+        function changeIcon(iconName) {
+            currentIcon = iconName;
+            const iconElement = document.getElementById('icon');
+            
+            if (iconName === 'none') {
+                iconElement.classList.add('hidden');
+            } else {
+                iconElement.classList.remove('hidden');
+                iconElement.innerHTML = icons[iconName];
+            }
+
+            // Mettre à jour l'UI
+            document.querySelectorAll('.icon-option').forEach(opt => opt.classList.remove('active'));
+            event.target.closest('.icon-option').classList.add('active');
+        }
+
+        // Changer la couleur du texte
+        function changeTextColor(color) {
+            currentTextColor = color;
+            const poster = document.getElementById('poster');
+            
+            // Retirer les classes de couleur
+            poster.classList.remove('text-white', 'text-black');
+            
+            // Ajouter la nouvelle classe
+            poster.classList.add('text-' + color);
+            
+            // Mettre à jour l'UI des boutons
+            const btnWhite = document.getElementById('btn-white');
+            const btnBlack = document.getElementById('btn-black');
+            
+            if (color === 'white') {
+                btnWhite.style.background = 'white';
+                btnWhite.style.color = '#4a4a4a';
+                btnWhite.style.border = '2px solid #667eea';
+                btnBlack.style.background = '#f0f0f0';
+                btnBlack.style.color = '#4a4a4a';
+                btnBlack.style.border = '2px solid #e0e0e0';
+            } else {
+                btnBlack.style.background = '#2d3748';
+                btnBlack.style.color = 'white';
+                btnBlack.style.border = '2px solid #667eea';
+                btnWhite.style.background = '#f0f0f0';
+                btnWhite.style.color = '#4a4a4a';
+                btnWhite.style.border = '2px solid #e0e0e0';
+            }
+        }
+
+        // Ouvrir l'éditeur
+        function openEditor() {
+            document.getElementById('textInput').value = document.getElementById('mainText').textContent.trim();
+            document.getElementById('refInput').value = document.getElementById('reference').textContent.trim();
+            document.getElementById('authorInput').value = document.getElementById('author').textContent.trim();
+            document.getElementById('editor').classList.add('active');
+            document.getElementById('overlay').classList.add('active');
+        }
+
+        // Fermer l'éditeur
+        function closeEditor() {
+            document.getElementById('editor').classList.remove('active');
+            document.getElementById('overlay').classList.remove('active');
+        }
+
+        // Sauvegarder le contenu
+        function saveContent() {
+            const text = document.getElementById('textInput').value;
+            const ref = document.getElementById('refInput').value;
+            const author = document.getElementById('authorInput').value;
+
+            if (text.trim()) {
+                document.getElementById('mainText').textContent = text;
+                document.getElementById('reference').textContent = ref;
+                document.getElementById('author').textContent = author || 'BHT';
+                closeEditor();
+            } else {
+                alert('⚠️ Veuillez entrer un texte.');
+            }
+        }
+
+        // Fermer avec overlay
+        document.getElementById('overlay').addEventListener('click', closeEditor);
+
+        // Télécharger l'affiche
+        async function downloadPoster() {
+            const btn = event.target;
+            const originalText = btn.textContent;
+            btn.textContent = '⏳ Génération...';
+            btn.disabled = true;
+
+            const controls = document.querySelector('.controls');
+            controls.style.display = 'none';
+
+            const poster = document.querySelector('.container');
+
+            try {
+                const canvas = await html2canvas(poster, {
+                    scale: 2,
+                    backgroundColor: null,
+                    logging: false,
+                    width: 600,
+                    height: 600
+                });
+
+                canvas.toBlob(function (blob) {
+                    const link = document.createElement('a');
+                    const date = new Date().toISOString().split('T')[0];
+                    link.download = `affiche-${date}.png`;
+                    link.href = URL.createObjectURL(blob);
+                    link.click();
+                    URL.revokeObjectURL(link.href);
+
+                    btn.textContent = '✅ Téléchargé !';
+                    setTimeout(() => {
+                        btn.textContent = originalText;
+                        btn.disabled = false;
+                    }, 2000);
+                }, 'image/png');
+
+            } catch (error) {
+                console.error('Erreur:', error);
+                alert('❌ Erreur lors du téléchargement. Veuillez réessayer.');
+                btn.textContent = originalText;
+                btn.disabled = false;
+            }
+
+            controls.style.display = 'flex';
+        }
+    </script>
+</body>
+
+</html>
